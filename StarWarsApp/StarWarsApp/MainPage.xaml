@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="StarWarsApp.MainPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Text="Star Wars Quiz!"
+               VerticalOptions="Start"
+               FontSize="Title"
+               Grid.Row="0"
+               Grid.ColumnSpan="2"
+               FontAttributes="Bold"
+               BackgroundColor="Black"
+               TextColor="Yellow"/>
+        <Label Text="test"
+               BackgroundColor="Black"
+               TextColor="Yellow"
+               FontSize="Large" 
+               FontAttributes="Bold"
+               Grid.Row="1" 
+               Grid.ColumnSpan="2"/>
+        <Button Text="Option 1"
+                Clicked="Button_Clicked_1"
+                BackgroundColor="Yellow" 
+                TextColor="Black" 
+                FontSize="Default" 
+                FontAttributes="Bold"
+                Grid.Row="2" 
+                Grid.Column="0"/>
+        <Button Text="Option 2" 
+                Clicked="Button_Clicked_2"
+                BackgroundColor="Yellow" 
+                TextColor="Black" 
+                FontSize="Default" 
+                FontAttributes="Bold"
+                Grid.Row="2" 
+                Grid.Column="1"/>
+    </Grid>
+    
+</ContentPage>
