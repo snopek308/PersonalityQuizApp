@@ -3,10 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:StarWarsApp"
              mc:Ignorable="d"
              x:Class="StarWarsApp.MainPage">
 
     <Grid>
+        <Grid.BindingContext>
+            <local:QuizDataViewModel/>
+        </Grid.BindingContext>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
@@ -24,23 +28,27 @@
                FontAttributes="Bold"
                BackgroundColor="Black"
                TextColor="Yellow"/>
-        <Label Text="test"
+        <Label Text="{Binding CurrentQuestion}"
                BackgroundColor="Black"
                TextColor="Yellow"
                FontSize="Large" 
                FontAttributes="Bold"
                Grid.Row="1" 
                Grid.ColumnSpan="2"/>
-        <Button Text="Option 1"
-                Clicked="Button_Clicked_1"
+        <Button x:Name="optionOne"
+                Text="Option 1"
+                Command="{Binding userResponse}"
+                CommandParameter="True"
                 BackgroundColor="Yellow" 
                 TextColor="Black" 
                 FontSize="Default" 
                 FontAttributes="Bold"
                 Grid.Row="2" 
                 Grid.Column="0"/>
-        <Button Text="Option 2" 
-                Clicked="Button_Clicked_2"
+        <Button x:Name="optionTwo" 
+                Text="Option 2" 
+                Command="{Binding userResponse}"
+                CommandParameter="False"
                 BackgroundColor="Yellow" 
                 TextColor="Black" 
                 FontSize="Default" 
