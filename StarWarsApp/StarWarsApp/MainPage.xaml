@@ -7,54 +7,39 @@
              mc:Ignorable="d"
              x:Class="StarWarsApp.MainPage">
 
-    <Grid>
-        <Grid.BindingContext>
-            <local:QuizDataViewModel/>
-        </Grid.BindingContext>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Label Text="Star Wars Quiz!"
-               VerticalOptions="Start"
-               FontSize="Title"
-               Grid.Row="0"
-               Grid.ColumnSpan="2"
-               FontAttributes="Bold"
-               BackgroundColor="Black"
-               TextColor="Yellow"/>
-        <Label Text="{Binding CurrentQuestion}"
-               BackgroundColor="Black"
-               TextColor="Yellow"
-               FontSize="Large" 
-               FontAttributes="Bold"
-               Grid.Row="1" 
-               Grid.ColumnSpan="2"/>
-        <Button x:Name="optionOne"
-                Text="Option 1"
-                Command="{Binding userResponse}"
-                CommandParameter="True"
-                BackgroundColor="Yellow" 
-                TextColor="Black" 
-                FontSize="Default" 
-                FontAttributes="Bold"
-                Grid.Row="2" 
-                Grid.Column="0"/>
-        <Button x:Name="optionTwo" 
-                Text="Option 2" 
-                Command="{Binding userResponse}"
-                CommandParameter="False"
-                BackgroundColor="Yellow" 
-                TextColor="Black" 
-                FontSize="Default" 
-                FontAttributes="Bold"
-                Grid.Row="2" 
-                Grid.Column="1"/>
-    </Grid>
-    
+    <StackLayout Orientation="Vertical">
+        <Label Text="Which Star Wars Character are you?" FontSize="Title"
+               HorizontalOptions="Center" Margin="0,50,0,0" />
+        <ListView x:Name="listView"
+                  ItemTapped="OnItemTapped"
+                  ItemsSource="{Binding .}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="Center">
+                            <Label x:Name="qNum" IsVisible="false" Text="{Binding NumberOfQuestion}" />
+                            <Label Text="{Binding UserResponse}" />
+                            <Button x:Name="Yes_Button" Text="Left" Clicked="OnCellClicked"
+                                CommandParameter="{Binding .}"/>
+                            <Button x:Name="No_Button" Text="Right" Clicked="OnCellClicked"
+                                    CommandParameter="{Binding .}"/>
+                            <Label Text="{Binding Question}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Image x:Name="Banner"
+               Margin="5,5,5,50"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               IsVisible="False"/>
+        <Label x:Name="CharacterName" Font="Large" HorizontalOptions="Center"/>
+        <Button Text="Your Quiz Score: " Clicked="OnScoreQuizClicked"
+                WidthRequest="150" HorizontalOptions="Center"
+                Margin="0,0,0,50"/>
+    </StackLayout>
+
 </ContentPage>
