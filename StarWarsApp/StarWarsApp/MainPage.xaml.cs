@@ -1,8 +1,10 @@
 ﻿using StarWarsApp.Models;
+using StarWarsApp.Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -15,40 +17,47 @@ namespace StarWarsApp
     {
 
         public int pointsTotal = 0;
+        SwapiApiService swapiApiService;
 
         public MainPage()
         {
             InitializeComponent();
-
+            swapiApiService = new SwapiApiService(new HttpClient());
             listView.BindingContext = QuizQuestion.All;
         }
 
-        public void ScoreQuiz()
+        public async Task ScoreQuizAsync()
         {
-            string CharacterResult = "";
+            string characterName = "";
+            StarWarsCharacter CharacterResult;
 
             if(pointsTotal < 0)
             {
-                CharacterResult = "Ventress";
+                CharacterResult = await swapiApiService.GetStarWarsCharacter("people/4");
+                characterName = CharacterResult.name;
             }
             else if (pointsTotal < 0 && pointsTotal < 50)
             {
-                CharacterResult = "Hera";
+                CharacterResult = await swapiApiService.GetStarWarsCharacter("people/10");
+                characterName = CharacterResult.name;
             }
             else if (pointsTotal < 50 && pointsTotal < 75)
             {
-                CharacterResult ="Leia";
+                CharacterResult = await swapiApiService.GetStarWarsCharacter("people/5");
+                characterName = CharacterResult.name;
             }
             else if (pointsTotal < 75 && pointsTotal < 100)
             {
-                CharacterResult = "Ahsoka";
+                CharacterResult = await swapiApiService.GetStarWarsCharacter("people/1");
+                characterName = CharacterResult.name;
             }
             else
             {
-                CharacterResult ="Sabine";
+                CharacterResult = await swapiApiService.GetStarWarsCharacter("people/3");
+                characterName = CharacterResult.name;
             }
 
-            CharacterName.Text = "Wow, you're such a " + CharacterResult + "!";
+            CharacterName.Text = "Wow, you're such a " + characterName + "!";
             pointsTotal = 0;
         }
 
@@ -92,7 +101,7 @@ namespace StarWarsApp
             if (QuizQuestion.AllQuestionsAnswered())
             {
                 // Score quiz
-                ScoreQuiz();
+                await ScoreQuizAsync();
             }
             else
             {
